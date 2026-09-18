@@ -3,57 +3,112 @@
 <html>
 <head>
     <title>My Web Page</title>
+
+    <style>
+        body {
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: darkblue;
+            text-align: center;
+        }
+
+        h2 {
+            color: darkgreen;
+            border-bottom: 2px solid darkgreen;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: darkorange;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        ul {
+            background-color: white;
+            padding: 20px;
+            width: 300px;
+        }
+
+        /* Mobile styling */
+        @media (max-width: 600px) {
+            body {
+                margin: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            ul {
+                width: auto;
+                padding: 15px;
+            }
+        }
+
+        /* Desktop styling */
+        @media (min-width: 601px) {
+            body {
+                max-width: 1000px;
+                margin: 40px auto;
+            }
+        }
+    </style>
 </head>
 
-<body style="background-color: lightblue; font-family: Arial, sans-serif; margin: 40px;">
+<body>
 
-    <h1 style="color: darkblue; text-align: center;">
-        Welcome to My Web Page
-    </h1>
+    <h1>Welcome to My Web Page</h1>
 
-    <h2 style="color: darkgreen; border-bottom: 2px solid darkgreen;">
-        About Me
-    </h2>
+    <h2>About Me</h2>
 
-    <p style="font-size: 18px; color: #333333;">
+    <p>
         Hello! My name is Misgana Abera. I am currently studying
         Computer Science and I am interested in programming and web development.
     </p>
 
-    <h2 style="color: darkgreen;">
-        My Interests
-    </h2>
+    <h2>My Interests</h2>
 
-    <p style="font-size: 18px; color: #333333;">
+    <p>
         One of my main interests is learning about computers and technology.
         I enjoy learning how websites and applications are created.
     </p>
 
-    <h3 style="color: darkorange;">
-        Things I Enjoy Learning
-    </h3>
+    <h3>Things I Enjoy Learning</h3>
 
-    <ul style="background-color: white; padding: 20px; width: 300px;">
+    <ul>
         <li>Python programming</li>
         <li>HTML and web development</li>
         <li>Computer science</li>
         <li>New technologies</li>
     </ul>
 
-    <h2 style="color: darkgreen;">
-        My Goals
-    </h2>
+    <h2>My Goals</h2>
 
-    <p style="font-size: 18px; color: #333333;">
+    <p>
         My goal is to improve my programming skills and develop useful
         applications in the future.
     </p>
 
-    <h2 style="color: darkgreen;">
-        My Favourite Website
-    </h2>
+    <h2>My Favourite Website</h2>
 
-    <p style="font-size: 18px; color: #333333;">
+    <p>
         I enjoy using the internet to learn new programming skills and
         find useful resources.
     </p>
