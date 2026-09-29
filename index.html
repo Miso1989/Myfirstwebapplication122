@@ -1,7 +1,9 @@
-```html
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Web Page</title>
 
     <style>
@@ -36,6 +38,65 @@
             background-color: white;
             padding: 20px;
             width: 300px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Interactive form styling */
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #777;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font: inherit;
+        }
+
+        button {
+            background-color: darkblue;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: darkgreen;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid orange;
+            outline-offset: 2px;
+        }
+
+        #result {
+            background-color: white;
+            color: darkgreen;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
         }
 
         /* Mobile styling */
@@ -113,6 +174,103 @@
         find useful resources.
     </p>
 
+    <!-- JavaScript interactive section -->
+    <h2>Explore My Technology Interests</h2>
+
+    <p>
+        Fill in the form below to share your technology interests.
+        The page will respond to your answers.
+    </p>
+
+    <form id="interestForm">
+        <label for="visitorName">Your Name:</label>
+        <input
+            type="text"
+            id="visitorName"
+            name="visitorName"
+            placeholder="Enter your name"
+            required
+        >
+
+        <label for="technology">Choose Your Favourite Technology:</label>
+        <select id="technology" name="technology" required>
+            <option value="">Select an option</option>
+            <option value="Python Programming">Python Programming</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="Electronics">Electronics</option>
+        </select>
+
+        <label for="comments">Why are you interested in technology?</label>
+        <textarea
+            id="comments"
+            name="comments"
+            rows="4"
+            placeholder="Write your answer here..."
+        ></textarea>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Clear Form</button>
+    </form>
+
+    <div id="result" aria-live="polite" hidden></div>
+
+    <script>
+        // Select the form and result elements
+        const form = document.getElementById("interestForm");
+        const result = document.getElementById("result");
+
+        // Respond when the visitor submits the form
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get the values entered by the visitor
+            const name = document.getElementById("visitorName").value.trim();
+            const technology = document.getElementById("technology").value;
+            const comments = document.getElementById("comments").value.trim();
+
+            // Check that the name and technology have been entered
+            if (name === "" || technology === "") {
+                result.textContent = "Please enter your name and select a technology.";
+                result.hidden = false;
+                return;
+            }
+
+            // Display a personalised response
+            result.replaceChildren();
+
+            const heading = document.createElement("h3");
+            heading.textContent = "Thank you, " + name + "!";
+
+            const message = document.createElement("p");
+            message.textContent =
+                "Your favourite technology is " + technology + ".";
+
+            result.appendChild(heading);
+            result.appendChild(message);
+
+            if (comments !== "") {
+                const commentMessage = document.createElement("p");
+                commentMessage.textContent =
+                    "Your comment: " + comments;
+                result.appendChild(commentMessage);
+            }
+
+            const finalMessage = document.createElement("p");
+            finalMessage.textContent =
+                "Keep learning and exploring new technologies!";
+
+            result.appendChild(finalMessage);
+            result.hidden = false;
+        });
+
+        // Clear the result when the form is reset
+        form.addEventListener("reset", function() {
+            result.hidden = true;
+            result.replaceChildren();
+        });
+    </script>
+
 </body>
 </html>
-```
