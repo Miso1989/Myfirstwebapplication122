@@ -91,12 +91,35 @@
             outline-offset: 2px;
         }
 
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+
         #result {
             background-color: white;
             color: darkgreen;
             padding: 15px;
             margin-top: 15px;
             border-radius: 5px;
+        }
+
+        /* Random Duck API styling */
+        #duckResult {
+            background-color: white;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 10px;
+            max-width: 500px;
+        }
+
+        #duckResult img {
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            margin: 10px auto;
+            border-radius: 10px;
         }
 
         /* Mobile styling */
@@ -119,6 +142,10 @@
 
             ul {
                 width: auto;
+                padding: 15px;
+            }
+
+            form {
                 padding: 15px;
             }
         }
@@ -174,7 +201,7 @@
         find useful resources.
     </p>
 
-    <!-- JavaScript interactive section -->
+    <!-- Interactive technology form -->
     <h2>Explore My Technology Interests</h2>
 
     <p>
@@ -183,6 +210,7 @@
     </p>
 
     <form id="interestForm">
+
         <label for="visitorName">Your Name:</label>
         <input
             type="text"
@@ -212,9 +240,26 @@
 
         <button type="submit">Submit</button>
         <button type="reset">Clear Form</button>
+
     </form>
 
     <div id="result" aria-live="polite" hidden></div>
+
+    <!-- Random Duck API section -->
+    <h2>Discover a Random Duck</h2>
+
+    <p>
+        Click the button below to discover a random duck picture
+        using an external API.
+    </p>
+
+    <button type="button" id="duckButton">
+        Show Me a Random Duck
+    </button>
+
+    <div id="duckResult" aria-live="polite">
+        <p>Your random duck picture will appear here.</p>
+    </div>
 
     <script>
         // Select the form and result elements
@@ -232,7 +277,8 @@
 
             // Check that the name and technology have been entered
             if (name === "" || technology === "") {
-                result.textContent = "Please enter your name and select a technology.";
+                result.textContent =
+                    "Please enter your name and select a technology.";
                 result.hidden = false;
                 return;
             }
@@ -269,6 +315,66 @@
         form.addEventListener("reset", function() {
             result.hidden = true;
             result.replaceChildren();
+        });
+
+        // Select the Random Duck API elements
+        const duckButton = document.getElementById("duckButton");
+        const duckResult = document.getElementById("duckResult");
+
+        // Get a random duck picture when the button is clicked
+        duckButton.addEventListener("click", function() {
+
+            duckResult.textContent = "Loading a random duck...";
+            duckButton.disabled = true;
+
+            // Request data from the Random Duck API
+            fetch("https://random-d.uk/api/random")
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error("API request failed");
+                    }
+
+                    return response.json();
+                })
+
+                .then(function(data) {
+
+                    // Get the image URL from the JSON response
+                    const imageUrl = data.url || data.message;
+
+                    if (
+                        typeof imageUrl !== "string" ||
+                        !imageUrl.startsWith("https://")
+                    ) {
+                        throw new Error("No valid image was returned");
+                    }
+
+                    // Create an image element
+                    const duckImage = document.createElement("img");
+                    duckImage.src = imageUrl;
+                    duckImage.alt = "A random duck picture";
+
+                    // Display the image
+                    duckResult.replaceChildren(duckImage);
+
+                    // Show a message if the image cannot load
+                    duckImage.addEventListener("error", function() {
+                        duckResult.textContent =
+                            "The picture could not be displayed. Please try again.";
+                    });
+                })
+
+                .catch(function(error) {
+                    // Display an error if the API does not work
+                    duckResult.textContent =
+                        "Sorry, we could not load a duck picture. Please try again.";
+
+                    console.error("Error:", error);
+                })
+
+                .finally(function() {
+                    duckButton.disabled = false;
+                });
         });
     </script>
 
